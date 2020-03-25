@@ -21,8 +21,6 @@
   </div>
 </div>
 
-<h1>{{language}}</h1>
-
 
 <!--MODAL WHEN TIME IS UP--> 
 
@@ -36,9 +34,9 @@
         </button>
       </div>
       <div class="modal-body">
-        <div class="d-flex justify-content-center"><h2>WPM {{wordsPerMinute}}</h2></div>
-        <div class="d-flex justify-content-center"><h5>Correct words: {{rightWordsAmount}}</h5></div>
-        <div class="d-flex justify-content-center"><h5>Wrong words: {{falseWordsAmount}}</h5></div>
+        <div class="d-flex justify-content-center"><h2>WPM {{resultStats.wordsPerMinute}}</h2></div>
+        <div class="d-flex justify-content-center"><h5>Correct words: {{resultStats.rightWordsAmount}}</h5></div>
+        <div class="d-flex justify-content-center"><h5>Wrong words: {{resultStats.falseWordsAmount}}</h5></div>
         <div class="modal-footer d-flex justify-content-center">
           <button type="button" (click)="restartGame()" class="btn btn-secondary" data-dismiss="modal">Try again</button>
           <button type="button" class="btn btn-primary">Share</button>

@@ -25,12 +25,8 @@ export class TypeTestComponent {
   currentWordIndex: number = 0;
 
   //user stats
-  resultStats: gameStats;
-  rightWordsAmount: number;
-  rightCharactersAmount: number;
-  falseWordsAmount: number;
-  falseCharactersAmount: number;
-  wordsPerMinute;
+  resultStats = {} as gameStats;
+  
 
   //timer
   timerText: string;
@@ -47,20 +43,19 @@ export class TypeTestComponent {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.language.firstChange == false && changes.language != null) {
-      this.ngOnInit();
+      this.restartGame();
     }
   }
 
   ngOnInit() {
 
-
-
     this.currentWordIndex = 0;
     this.wordsetMarginTop = 0;
     this.resetStats();
-    this.timerInSeconds = 3;
+    this.timerInSeconds = 10;
     this.timerText = "1:00";
     this.userInput = "";
+    this.isReadonly = false;
 
     this.loadWordSet();
 
@@ -68,16 +63,13 @@ export class TypeTestComponent {
   }
 
   resetStats() {
-    this.rightWordsAmount = 0;
-    this.rightCharactersAmount = 0;
-    this.falseWordsAmount = 0;
-    this.falseCharactersAmount = 0;
+    this.resultStats.rightWordsAmount = 0;
+    this.resultStats.rightCharactersAmount = 0;
+    this.resultStats.falseWordsAmount = 0;
+    this.resultStats.falseCharactersAmount = 0;
   }
 
   restartGame() {
-
-
-    this.isReadonly = false;
 
     clearInterval(this.intervalId); //that the times doesn't count to minus
     this.secondsLeftOnTimer = null;
@@ -110,58 +102,62 @@ export class TypeTestComponent {
   }
 
   keypress(event) {
-    if (this.secondsLeftOnTimer == null) {
-      this.startTimer();
+
+    if (!this.isReadonly) {
+      
+      if (this.secondsLeftOnTimer == null) {
+        this.startTimer();
+      }
+
+      var currentWordElement = (<HTMLInputElement>document.getElementById('word' + String(this.currentWordIndex)));
+      var nextWordElement = (<HTMLInputElement>document.getElementById('word' + String(this.currentWordIndex + 1)));
+
+      var currentWordInput = this.userInput.split(" ")[0];
+
+      //if user presses space
+      if (event.key == " ") {
+
+        if (currentWordInput == this.words[this.currentWordIndex]) {
+          this.wordsStyle[this.currentWordIndex].color = "green";
+          this.resultStats.rightCharactersAmount += (currentWordInput.length + 1);
+          this.resultStats.rightWordsAmount++;
+        }
+        else {
+          this.wordsStyle[this.currentWordIndex].color = "red";
+          this.resultStats.falseCharactersAmount += currentWordInput.length;
+          this.resultStats.falseWordsAmount++;
+        }
+
+        //check if the element breaks the line
+        var positionCurrentWord = $("#" + currentWordElement.id).position();
+        var positionNextWord = $("#" + nextWordElement.id).position();
+
+        if (positionCurrentWord.top != positionNextWord.top) {
+          //var heightOfWordContainer = (document.getElementById('wordContainer')).offsetHeight;
+          //var divPadding = 5;
+
+          this.wordsetMarginTop -= 50;
+          //$("#wordset").animate({ marginTop: '-=' + ((heightOfWordContainer / 2) - divPadding) + 'px' });
+        }
+
+        this.userInput = this.userInput.split(" ")[1];  //the user writes more than the space so every other character gets added
+
+        this.wordsStyle[this.currentWordIndex].backgroundColor = "transparent";
+        this.wordsStyle[this.currentWordIndex + 1].backgroundColor = "lightgray";
+
+        this.currentWordIndex++;
+      }
+      else {  //if a normal key is pressed
+        if (currentWordElement.innerHTML.startsWith(currentWordInput)) {
+          this.wordsStyle[this.currentWordIndex].backgroundColor = "lightgray";
+
+        }
+        else {
+          this.wordsStyle[this.currentWordIndex].backgroundColor = "red";
+        }
+      }
     }
 
-    var currentWordElement = (<HTMLInputElement>document.getElementById('word' + String(this.currentWordIndex)));
-    var nextWordElement = (<HTMLInputElement>document.getElementById('word' + String(this.currentWordIndex + 1)));
-
-    var currentWordInput = this.userInput.split(" ")[0];
-
-    //if user presses space
-    if (event.key == " ") {
-
-      if (currentWordInput == this.words[this.currentWordIndex]) {
-        this.wordsStyle[this.currentWordIndex].color = "green";
-        this.rightCharactersAmount += (currentWordInput.length + 1);
-        this.rightWordsAmount++;
-      }
-      else {
-        this.wordsStyle[this.currentWordIndex].color = "red";
-        this.falseCharactersAmount += currentWordInput.length;
-        this.falseWordsAmount++;
-      }
-
-      //check if the element breaks the line
-      var positionCurrentWord = $("#" + currentWordElement.id).position();
-      var positionNextWord = $("#" + nextWordElement.id).position();
-
-      if (positionCurrentWord.top != positionNextWord.top) {
-        //var heightOfWordContainer = (document.getElementById('wordContainer')).offsetHeight;
-        //var divPadding = 5;
-
-        this.wordsetMarginTop -= 50;
-        //$("#wordset").animate({ marginTop: '-=' + ((heightOfWordContainer / 2) - divPadding) + 'px' });
-      }
-
-      this.userInput = this.userInput.split(" ")[1];  //the user writes more than the space so every other character gets added
-
-      this.wordsStyle[this.currentWordIndex].backgroundColor = "transparent";
-      this.wordsStyle[this.currentWordIndex + 1].backgroundColor = "lightgray";
-
-      this.currentWordIndex++;
-    }
-    else {  //if a normal key is pressed
-      if (currentWordElement.innerHTML.startsWith(currentWordInput)) {
-        this.wordsStyle[this.currentWordIndex].backgroundColor = "lightgray";
-
-      }
-      else {
-        this.wordsStyle[this.currentWordIndex].backgroundColor = "red";
-      }
-
-    }
   }
 
   startTimer() {
@@ -183,24 +179,19 @@ export class TypeTestComponent {
 
   timeIsUp() {
 
-
-
     this.userInput = "";
     this.isReadonly = true;
 
     clearInterval(this.intervalId); //that the times doesn't count to minus
 
     //calculation for wordPerMinute
-    var wordsPerMinuteExactValue = (this.rightCharactersAmount / 5) / (this.timerInSeconds / 60);
-    this.wordsPerMinute = Math.floor(wordsPerMinuteExactValue); //round it to the lower number
+    var wordsPerMinuteExactValue = (this.resultStats.rightCharactersAmount / 5) / (this.timerInSeconds / 60);
+    this.resultStats.wordsPerMinute = Math.floor(wordsPerMinuteExactValue); //round it to the lower number
 
 
     $("#resultModal").modal('show');
   }
-
-  closeModal() {
-
-  }
+  
 }
 
 interface style {
