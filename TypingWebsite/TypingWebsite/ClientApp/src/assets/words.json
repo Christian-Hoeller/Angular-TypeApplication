@@ -1,0 +1,12 @@
+{
+  "sets": [
+    {
+      "language": "german",
+      "wordset": "hallo ich ein bin du es wie geht gehen es sein du dürfen mögen"
+    },
+    {
+      "language": "english",
+      "wordset": "hello how are you doing am what is the problem probably do go went gone run"
+    }
+  ]
+}
