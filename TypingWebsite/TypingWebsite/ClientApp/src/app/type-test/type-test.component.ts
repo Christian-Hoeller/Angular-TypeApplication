@@ -7,6 +7,7 @@ declare let $: any;
 @Component({
   selector: 'app-type-test',
   templateUrl: './type-test.component.html',
+  styleUrls: ['./type-test.component.css'],
 })
 export class TypeTestComponent {
 

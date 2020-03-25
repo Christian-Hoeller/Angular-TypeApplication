@@ -1,2 +1,47 @@
 body {
 }
+
+
+.word-wrapper {
+
+  border-radius:5px;
+
+  padding-bottom: 20px;
+  padding-top: 20px;
+
+  margin-bottom:7px;
+}
+
+.word-container {
+  margin: 0 auto;
+  background-color: white;
+  user-select: none;
+  width: 80%;
+  height: 110px;
+  overflow: hidden;
+  padding: 5px 10px 5px 10px;
+}
+.user-input {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-width: 1px;
+  box-shadow: 0px 0px 2px rgba(66,66,66,.75);
+}
+
+.wordset {
+  font-family: 'Baloo Thambi 2';
+  color: black;
+}
+
+.inputArea {
+  padding-top: 5px;
+  margin: 0 auto;
+}
+
+.word {
+  display: inline-block;
+  border-radius: 3px;
+  padding: 5px;
+  line-height: 40px;
+  font-size: 30px;
+}

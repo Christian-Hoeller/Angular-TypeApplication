@@ -1,24 +1,6 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Baloo+Thambi+2&display=swap');
 
-
-
-body {
-}
-
-.highligh{
-    background-color:lightgray;
-}
-
-
-.all{
-    background-color:transparent;
-    color: fuchsia;
-
-}
-
-.first {
-  background-color: lightgrey;
-}
 
 .inputArea{
     width: 30%;
@@ -28,31 +10,14 @@ body {
     text-decoration:underline;
 }
 
-
-.word-container {
-  margin-left: 10%;
-}
-
-.wordContainer {
-  user-select: none;
-  width: 80%;
-  height: 110px;
-  overflow: hidden;
-  padding: 5px 10px 5px 10px;
+.language-wrapper {
   border-radius: 5px;
-  border: 1px solid black;
+  background-color: white;
+
+  margin-bottom:7px;
 }
 
-.wordset {
-  font-family: 'Baloo Thambi 2', cursive;
-  color: black;
-}
 
-.word {
-  display: inline-block;
-  border-radius: 3px;
-  padding: 5px;
-  line-height: 40px;
-  font-size: 30px;
-}
+
+
 

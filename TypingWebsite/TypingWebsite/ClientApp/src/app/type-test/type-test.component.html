@@ -1,25 +1,36 @@
-<div id="wordContainer" class="wordContainer">
-  <div id="wordset" class="wordset" #wordset [style.marginTop.px]="wordsetMarginTop">
-    <span *ngFor="let word of words; index as wordId; first as isFirst"
-          [style.background-color]="wordsStyle[wordId].backgroundColor"
-          [style.color]="wordsStyle[wordId].color"
-          class="word" id="word{{wordId}}">{{word}}</span>
-  </div>
-</div>
 
-<div class="inputArea input-group mb-3">
 
-  <input type="text" class="form-control" autocomplete="off" id="userInput"
-         [(ngModel)]="userInput"
-         (keyup)="keypress($event)"
-         [readonly] ="isReadonly"
-         aria-label="textarea"
-         aria-describedby="basic-addon2">
-  <div class="input-group-append">
-    <span class="input-group-text" id="timer">{{timerText}}</span>
-    <button class="input-group-text btn-primary" id="timer" (click)="restartGame()">restart</button>
+
+  <div class="word-wrapper card">
+
+    <div id="word-container" class="word-container ">
+      <div id="wordset" class="wordset" #wordset [style.marginTop.px]="wordsetMarginTop">
+        <span *ngFor="let word of words; index as wordId; first as isFirst"
+              [style.background-color]="wordsStyle[wordId].backgroundColor"
+              [style.color]="wordsStyle[wordId].color"
+              class="word" id="word{{wordId}}">{{word}}</span>
+      </div>
+    </div>
+
   </div>
-</div>
+
+  <div class="input-wrapper card">
+    <div class="inputArea input-group mb-3">
+
+      <input type="text" class="user-input" autocomplete="off" id="userInput"
+             [(ngModel)]="userInput"
+             (keyup)="keypress($event)"
+             [readonly]="isReadonly"
+             aria-label="textarea"
+             aria-describedby="basic-addon2">
+      <div class="input-group-append">
+        <span class="input-group-text" id="timer">{{timerText}}</span>
+        <button class="input-group-text btn-primary" id="timer" (click)="restartGame()">restart</button>
+      </div>
+    </div>
+  </div>
+
+
 
 
 <!--MODAL WHEN TIME IS UP--> 

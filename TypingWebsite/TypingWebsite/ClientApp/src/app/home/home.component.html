@@ -1,22 +1,24 @@
 
 
-
-  <div id="wordWrapper" class="word-container">
-
-    <div class="dropdown">
-      <button class="btn btn-primary dropdown-toggle" type="button" id="languageSelectButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        {{selectedLanguage}}
-      </button>
-      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a *ngFor="let language of languages" class="dropdown-item" (click)="languageSelected(language)">{{language}}</a>
-      </div>
-    </div>
-
-
-    <app-type-test language={{selectedLanguage}}>
-
-    </app-type-test>
+<div class="dropdown">
+  <button class="btn btn-danger dropdown-toggle" type="button" id="languageSelectButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    {{selectedLanguage}}
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a *ngFor="let language of languages" class="dropdown-item" (click)="languageSelected(language)">{{language}}</a>
   </div>
+</div>
+
+
+<app-type-test language={{selectedLanguage}}>
+
+
+</app-type-test>
+
+<div class="lower"></div>
+
+
+
 
 
 
