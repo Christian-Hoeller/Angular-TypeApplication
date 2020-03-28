@@ -1,58 +1,64 @@
 
 
 
-  <div class="word-wrapper card">
+  <div id="content-wrapper">
 
-    <div id="word-container" class="word-container ">
-      <div id="wordset" class="wordset" #wordset [style.marginTop.px]="wordsetMarginTop">
-        <span *ngFor="let word of words; index as wordId; first as isFirst"
-              [style.background-color]="wordsStyle[wordId].backgroundColor"
-              [style.color]="wordsStyle[wordId].color"
-              class="word" id="word{{wordId}}">{{word}}</span>
+    <div id="top-bar">
+      <div id="language">{{language}}</div>
+      <div id="timer">{{timerText}}</div>
+    </div>
+
+    <div class="word-wrapper">
+
+      <div id="word-container" class="word-container">
+        <div id="wordset" class="wordset" #wordset [style.marginTop.px]="wordsetMarginTop">
+          <span *ngFor="let word of words; index as wordId; first as isFirst"
+                [style.background-color]="wordsStyle[wordId].backgroundColor"
+                [style.color]="wordsStyle[wordId].color"
+                class="word" id="word{{wordId}}">{{word}}</span>
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="input-area">
+      <div class="input-wrapper">
+        <input #input type="text" class="user-input" autocomplete="off" spellcheck="false" id="userInput"
+               [(ngModel)]="userInput"
+               (keyup)="keypress($event)"
+               [readonly]="isReadonly"
+               aria-label="textarea"
+               aria-describedby="basic-addon2"
+               autofocus>
+        <button class="restart-button" (click)="restartGame()">Restart</button>
       </div>
     </div>
 
-  </div>
 
-  <div class="input-wrapper card">
-    <div class="inputArea input-group mb-3">
-
-      <input type="text" class="user-input" autocomplete="off" id="userInput"
-             [(ngModel)]="userInput"
-             (keyup)="keypress($event)"
-             [readonly]="isReadonly"
-             aria-label="textarea"
-             aria-describedby="basic-addon2">
-      <div class="input-group-append">
-        <span class="input-group-text" id="timer">{{timerText}}</span>
-        <button class="input-group-text btn-primary" id="timer" (click)="restartGame()">restart</button>
-      </div>
-    </div>
   </div>
 
 
+    <!--MODAL WHEN TIME IS UP-->
 
-
-<!--MODAL WHEN TIME IS UP--> 
-
-<div class="modal fade" id="resultModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h6 class="modal-title" id="exampleModalLabel">Results</h6>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="d-flex justify-content-center"><h2>WPM {{resultStats.wordsPerMinute}}</h2></div>
-        <div class="d-flex justify-content-center"><h5>Correct words: {{resultStats.rightWordsAmount}}</h5></div>
-        <div class="d-flex justify-content-center"><h5>Wrong words: {{resultStats.falseWordsAmount}}</h5></div>
-        <div class="modal-footer d-flex justify-content-center">
-          <button type="button" (click)="restartGame()" class="btn btn-secondary" data-dismiss="modal">Try again</button>
-          <button type="button" class="btn btn-primary">Share</button>
+    <div class="modal fade" id="resultModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h6 class="modal-title" id="exampleModalLabel">Results</h6>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="d-flex justify-content-center"><h2>WPM {{resultStats.wordsPerMinute}}</h2></div>
+            <div class="d-flex justify-content-center"><h5>Correct words: {{resultStats.rightWordsAmount}}</h5></div>
+            <div class="d-flex justify-content-center"><h5>Wrong words: {{resultStats.falseWordsAmount}}</h5></div>
+            <div class="modal-footer d-flex justify-content-center">
+              <button type="button" (click)="restartGame()" class="btn btn-secondary" data-dismiss="modal">Try again</button>
+              <button type="button" class="btn btn-primary">Share</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</div>

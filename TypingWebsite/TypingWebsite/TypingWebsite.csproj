@@ -24,10 +24,12 @@
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="ClientApp\src\app\autofocus.directive.ts" />
     <None Remove="ClientApp\src\app\readonly.directive.ts" />
     <None Remove="ClientApp\src\app\type-test\type-test.component.ts" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\autofocus.directive.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\readonly.directive.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\type-test\type-test.component.ts" />
   </ItemGroup>

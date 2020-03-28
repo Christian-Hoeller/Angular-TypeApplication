@@ -1,4 +1,4 @@
-import { Component, Input, SimpleChanges } from '@angular/core';
+import { Component, Input, SimpleChanges, ViewChild, ElementRef } from '@angular/core';
 import wordsJson from 'src/assets/words.json';
 declare let $: any;
 
@@ -15,6 +15,7 @@ export class TypeTestComponent {
   words: Array<string> = new Array();
   inputAreaReadonly: boolean = false;
   isReadonly: boolean = false;
+  @ViewChild("input", { static: false }) userInputArea;
 
   //styles
   wordsStyle: Array<style> = new Array();
@@ -36,12 +37,6 @@ export class TypeTestComponent {
   intervalId;
 
 
-
-  console() {
-    console.log("weeeelll i think this works fine");
-  }
-
-
   ngOnChanges(changes: SimpleChanges) {
     if (changes.language.firstChange == false && changes.language != null) {
       this.restartGame();
@@ -53,14 +48,19 @@ export class TypeTestComponent {
     this.currentWordIndex = 0;
     this.wordsetMarginTop = 0;
     this.resetStats();
-    this.timerInSeconds = 10;
+    this.timerInSeconds = 60;
     this.timerText = "1:00";
     this.userInput = "";
     this.isReadonly = false;
 
     this.loadWordSet();
-
+   
     this.inputAreaReadonly = true;
+
+    if (this.userInputArea != null) { //if it's first initialized the element isn't yet created
+      this.userInputArea.nativeElement.focus();
+      console.log("game restarted")
+    }
   }
 
   resetStats() {
@@ -75,6 +75,7 @@ export class TypeTestComponent {
     clearInterval(this.intervalId); //that the times doesn't count to minus
     this.secondsLeftOnTimer = null;
     this.ngOnInit();
+
   }
 
   loadWordSet() {
@@ -97,9 +98,7 @@ export class TypeTestComponent {
 
       this.words.push(wordset[randomIndex]);
     }
-
     this.wordsStyle[0].backgroundColor = "lightgray";
-    console.log(this.wordsStyle);
   }
 
   keypress(event) {
@@ -191,9 +190,17 @@ export class TypeTestComponent {
 
 
     $("#resultModal").modal('show');
+    this.writeInDatabase()
+  }
+
+
+
+  writeInDatabase() {
+    //implement api call
   }
   
 }
+
 
 interface style {
   color: string;

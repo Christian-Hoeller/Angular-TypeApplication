@@ -11,6 +11,7 @@ import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { TypeTestComponent } from './type-test/type-test.component';
 import { ReadOnlyDirective } from './readonly.directive';
+import { AutofocusDirective } from './autofocus.directive';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { ReadOnlyDirective } from './readonly.directive';
     CounterComponent,
     FetchDataComponent,
     ReadOnlyDirective,
+    AutofocusDirective,
     TypeTestComponent
   ],
   imports: [

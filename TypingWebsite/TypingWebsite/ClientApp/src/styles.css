@@ -1,9 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@1,300&display=swap');
 
-body{
-    background-color:#e8e8e8;
+body {
+  background: #EAEBEC;
 }
 
+.navbar {
+  background: #485C75;
+}
 
 /* Provide sufficient contrast against white background */
 a {
